@@ -4,6 +4,10 @@ const sequelize = new Sequelize('sqlite:src/db.sqlite');
 const User = sequelize.define(
   'user',
   {
+    rowid: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+    },
     gender: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -20,7 +24,6 @@ const User = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
-      primaryKey: true,
     },
     phone_number: {
       type: DataTypes.STRING,
