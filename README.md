@@ -43,9 +43,10 @@ Overall, how much time did you spent (approximately) on this challenge?
 
 ### Your answers
 
-<!--
-Write down your answers here
--->
+1. 10000 user might be a lot to serve in one json response, pagination will  be a better option. SQLite might also be a bit limited in functionality and speed for larger/production env since the reduced speed to query data & limitations in user management, encryption methods, limited join options, limited field types ... Adding a proper id to the user table would also be nice.
+2. Instead of using raw queries to create the database, a migration system should be used. This is more developer friendly if changes happen to the db. Also an ORM should be used instead of raw insert queries. This makes it a lot easier to change databases since only the driver has to be changed. This makes it also possible to use types that are not supported in databases.
+3. You would create an endpoint with a queryparameter `search` and use that in a db query that looks for fields containing your search (LIKE %yoursearch%). If you want a more robust search, you could use `SOUNDS LIKE` that looks for similar sounding search results (a great solution for names, since you don't always know how to spell them).
+4. about 3.5 hours from setting everything up to reading docs to developping
 
 ## Delivery
 - Anything that is not enforced in the base repository (tools, dependencies, architecture, frameworks, ...) is free of choice
