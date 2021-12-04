@@ -19,13 +19,23 @@ exports.handler = async (event, context, callback) => {
 async function getUser(id: number) {
   try {
     const user = await User.findByPk(id);
-    return {
-      statusCode: 200,
-      body: JSON.stringify(user),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
+    if (user) {
+      return {
+        statusCode: 200,
+        body: JSON.stringify(user),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+    } else {
+      return {
+        statusCode: 404,
+        body: JSON.stringify({ error: 'not found' }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+    }
   } catch (error: any) {
     return {
       statusCode: 500,

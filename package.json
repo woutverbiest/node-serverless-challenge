@@ -4,7 +4,7 @@
   "description": "Stampix coding challenge focusing on Node.js & Serverless principles",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "watch": "tsc --watch",
     "start": "serverless offline",
     "lint": "lint-staged"
@@ -77,6 +77,11 @@
     ]
   },
   "dependencies": {
-    "sequelize": "^6.12.0-alpha.1"
+    "assert": "^2.0.0",
+    "axios": "^0.24.0",
+    "chai": "^4.3.4",
+    "mocha": "^9.1.3",
+    "sequelize": "^6.12.0-alpha.1",
+    "supertest": "^6.1.6"
   }
 }
