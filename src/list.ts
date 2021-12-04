@@ -5,7 +5,7 @@ exports.handler = async (event, context, callback) => {
 
   const result = await listUsers(queryParameters);
 
-  callback(null, JSON.stringify(result));
+  context.succeed(result);
 };
 
 /**
@@ -19,11 +19,20 @@ exports.handler = async (event, context, callback) => {
 async function listUsers(queryParameters: any) {
   try {
     const users = await User.findAll({ where: queryParameters });
-    return users;
+    return {
+      statusCode: 200,
+      body: JSON.stringify(users),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
   } catch (error: any) {
     return {
       statusCode: 500,
-      body: { error: error.name },
+      body: JSON.stringify({ error: error.name }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
     };
   }
 }

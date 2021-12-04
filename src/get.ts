@@ -5,7 +5,7 @@ exports.handler = async (event, context, callback) => {
 
   const result = await getUser(id);
 
-  callback(null, JSON.stringify(result));
+  context.succeed(result);
 };
 
 /**
@@ -19,11 +19,20 @@ exports.handler = async (event, context, callback) => {
 async function getUser(id: number) {
   try {
     const user = await User.findByPk(id);
-    return user;
+    return {
+      statusCode: 200,
+      body: JSON.stringify(user),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
   } catch (error: any) {
     return {
       statusCode: 500,
-      body: { error: error.name },
+      body: JSON.stringify({ error: error.name }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
     };
   }
 }

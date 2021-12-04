@@ -6,7 +6,7 @@ exports.handler = async (event, context, callback) => {
 
   const result = await createUser(data);
 
-  callback(null, JSON.stringify(result));
+  context.succeed(result);
 };
 
 /**
@@ -21,7 +21,13 @@ exports.handler = async (event, context, callback) => {
 async function createUser(data: any) {
   try {
     const user = await User.create(JSON.parse(data));
-    return user;
+    return {
+      statusCode: 201,
+      body: JSON.stringify(user),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
   } catch (error: any) {
     console.log(error);
 
@@ -31,17 +37,23 @@ async function createUser(data: any) {
 
       return {
         statusCode: 400,
-        body: {
+        body: JSON.stringify({
           error: error.name,
           validationErrors: validationErrors,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
         },
       };
     }
 
     return {
       statusCode: 500,
-      body: {
+      body: JSON.stringify({
         error: error.name,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
       },
     };
   }
